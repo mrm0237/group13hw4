@@ -14,59 +14,9 @@ int current_game_total(Bowling_Frame * first_frame)
 	int temp_total = 0;
 	while(temp)
 	{
-		//strike logic
-		if(temp->strike())
-		{
-			if(temp->next_frame())
-			{
-				if(temp->next_frame()->strike()) 
-				{
-					temp_total += 10;
-				
-					if(temp->next_frame()->next_frame()) 
-					{
-						if(temp->next_frame()->next_frame()->strike())
-							temp_total += 10;
-						else 
-							temp_total += temp->next_frame()->next_frame()->score1();
-					}
-					else
-					{
-						std::uniform_int_distribution<std::mt19937::result_type> dist10(0, 10);
-						temp_total += dist10(rng_main);
-					}
-				}	
-				else if(temp->next_frame()->spare()) temp_total += 10;
-				else 								temp_total += temp->next_frame()->frame_score();
-			}
-			else
-			{
-				std::uniform_int_distribution<std::mt19937::result_type> dist10(0, 10);
-				temp_total += dist10(rng_main) + dist10(rng_main);
-			}
-		}
-
-		//spare logic
-		if(temp->spare())
-		{
-			if(temp->next_frame())
-			{
-				if(temp->next_frame()->strike()) 	temp_total += 10;
-				else 								temp_total += temp->next_frame()->score1();
-			}
-			else
-			{
-				std::uniform_int_distribution<std::mt19937::result_type> dist10(0, 10);
-				temp_total += dist10(rng_main);
-			}
-		}
-
 		game_total += temp->frame_score();
-		game_total += temp_total;
-		temp_total = 0;
 		temp = temp->next_frame();
 	}
-
 	return game_total;	
 }
 
