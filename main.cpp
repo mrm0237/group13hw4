@@ -22,6 +22,9 @@ int current_game_total(Bowling_Frame * first_frame)
 
 int main()
 {
+	std::cout << "How many players do you have?";
+	std::cin >> num_players_; 
+	cout << "Player count is " << num_players_ << endl;
 	//make frames
 	Bowling_Frame * f1 = new Bowling_Frame(1);
 	Bowling_Frame * f2 = new Bowling_Frame(2);
